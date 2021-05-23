@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-4">
+			<h2 class = "text-center alert alert-primary">Add student</h2>
+<form action="" method="POST">
+	{% csrf_token %}
+	
+	{{fu.as_p}}
+
+	<input type="submit" class="btn btn-success">
+
+
+</form>
+</div>
+<div class="col-sm-8">
+	<h2 class = "text-center alert alert-info">Show Students Records</h2>
+	
+	{% if dat %}
+	<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">NAME</th>
+      <th scope="col">EMAIL</th>
+      <th scope="col">PHONE</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% for st in dat %}
+    <tr>
+      <th scope="row">{{st.userid}}</th>
+      <td>{{st.name}}</td>
+      <td>{{st.email}}</td>
+      <td>{{st.phone}}</td>
+      <td>
+      	
+       
+
+      	
+
+      	<form action="{% url 'deldata' st.userid %}" method="POST" class="d-inline">
+      		{% csrf_token %}
+      		<input type="submit" class="btn btn-danger " value="Delete">
+      	</form>
+      	
+
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<h4 class="text-center alert alert-secondary">No records</h4>
+{% endif %}
+	
+</div>
+</div>
+</div>
+
+{% endblock content %}
